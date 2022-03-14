@@ -16,5 +16,7 @@ public:
 	void showMenu();
 	void showMenuAdd();
 	void showMenuFind();
+	void menuPeriodo(Periodo*);
+
 };
 

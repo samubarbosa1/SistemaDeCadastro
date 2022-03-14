@@ -1,1 +1,4 @@
-﻿  Project1.vcxproj -> C:\Users\samue\OneDrive\Documentos\Projetos\lab de prog I\SistemaDeCadastro\x64\Debug\Project1.exe
+﻿  Terminal.cpp
+C:\Users\samue\OneDrive\Documentos\Projetos\lab de prog I\SistemaDeCadastro\Project1\Terminal.cpp(31,22): warning C5051: o atributo 'fallthrough' exige pelo menos '/std:c++17' e será ignorado
+C:\Users\samue\OneDrive\Documentos\Projetos\lab de prog I\SistemaDeCadastro\Project1\Terminal.cpp(36,22): warning C5051: o atributo 'fallthrough' exige pelo menos '/std:c++17' e será ignorado
+  Project1.vcxproj -> C:\Users\samue\OneDrive\Documentos\Projetos\lab de prog I\SistemaDeCadastro\x64\Debug\Project1.exe

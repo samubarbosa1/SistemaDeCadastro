@@ -5,7 +5,7 @@ class ListaEncadeada
 {
 public:
 	Type* val{nullptr};
-	void add();
+	void add(Type*);
 	Type* find(std::string ident);
 	void del(std::string ident);
 	void print();
@@ -14,22 +14,10 @@ public:
 
 
 template<typename Type>
-inline void ListaEncadeada<Type>::add()
+inline void ListaEncadeada<Type>::add(Type* newElement)
 {
-	Type* newElement = new Type();
-	std::string temp{};
-
-	if (find(newElement->getId()) != nullptr) {
-		std::cout << "Periodo ja existente!(precione enter para continuar)\n";
-		delete(newElement);
-		std::getline(std::cin, temp);
-	}
-	else {
-		newElement->prox = this->val;
-		this->val = newElement;
-		std::cout << "\nPeriodo " << newElement->getId() << " criado! (precione enter para continuar)\n";
-		std::getline(std::cin, temp);
-	}
+	newElement->prox = this->val;
+	this->val = newElement;
 }
 
 template<typename Type>

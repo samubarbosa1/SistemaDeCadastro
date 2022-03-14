@@ -48,16 +48,63 @@ void Terminal::showMenu()
 
 void Terminal::showMenuAdd()
 {
-    std::string periodo{};
-
-    ignoreOtherInputs();
     clear();
-    listaPeriodo->add();
 
-    showMenu();
+    std::string periodo{}, temp{};
+    ignoreOtherInputs();
+
+    Periodo *newElement = new Periodo;
+    
+    if (this->listaPeriodo->find(newElement->getId()) != nullptr) {
+        std::cout << "Periodo ja existente! (precione enter para continuar)\n";
+        delete(newElement);
+        std::getline(std::cin, temp);
+    }
+    else
+    {
+        this->listaPeriodo->add(newElement);
+        std::cout << "\nPeriodo " << newElement->getId() << " criado! (precione enter para continuar)\n";
+        std::getline(std::cin, temp);
+    }
+   
+    return;
 }
 
 void Terminal::showMenuFind()
 {
+    ignoreOtherInputs();
+    std::string periodo{};
+    std::string temp{};
 
+Perguntar:
+    while (true) {
+        clear();
+        std::cout << "Qual periodo deseja buscar? (xxxx.x)\n\n";
+        std::getline(std::cin, periodo);
+
+        if (periodo.size() == 6 && periodo[4] == '.') {
+            break;
+        }
+        else {
+            std::cout << "\nFormatacao de periodo invalida!\n";
+            std::cout << "Caso nao queira procurar um periodo, digite \"n\" (precione enter para continuar)\n";
+            std::getline(std::cin, temp);
+            if (!(temp.empty())) if (temp == "n") return;
+        }
+    }
+    Periodo* procurado{ this->listaPeriodo->find(periodo) };
+    if (!procurado)
+    {
+        std::cout << "Periodo nao encontrado.\n "
+            << "Caso nao queira procurar um periodo, digite \"n\" (precione enter para continuar)\n";
+        std::getline(std::cin, temp);
+        if (!(temp.empty())) if (temp == "n") return;
+        goto Perguntar;
+    }
+
+    this->menuPeriodo(procurado);
+}
+
+void Terminal::menuPeriodo(Periodo* periodo)
+{
 }
