@@ -4,12 +4,25 @@
 
 class Aluno {
 private:
+    std::string id;
     std::string nome;
     std::string cpf;
+
 public:
-    std::string id;
     Aluno* prox;
     Aluno();
+
+    //setters
+    void setCpf();
+    void setId();
+    void setNome();
+
+    //getters
+    std::string getCpf();
+    std::string getId();
+    std::string getNome();
+
+
     void print();
 };
 

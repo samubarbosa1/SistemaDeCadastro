@@ -4,18 +4,24 @@
 
 class Disciplina {
 private:
+    std::string id;
     std::string nome;
     std::string professor;
     int creditos;
+
+
 public:
-    std::string id;
     Disciplina* prox{};
 
-    //construtor
+    //construtor e destrutor
     Disciplina();
-
-    //destrutor
     virtual ~Disciplina();
+
+    //setter
+    void setId();
+    void setNome();
+    void setProfessor();
+    void setCreditos();
 
 };
 

@@ -12,6 +12,7 @@ public:
 	~ListaEncadeada();
 };
 
+
 template<typename Type>
 inline void ListaEncadeada<Type>::add()
 {
@@ -24,7 +25,7 @@ template<typename Type>
 inline Type* ListaEncadeada<Type>::find(std::string ident)
 {
 	Type* iterator{ this->val };
-	while (iterator->id != ident)
+	while (iterator->getId() != ident)
 	{
 		iterator = iterator->prox;
 		if (iterator == nullptr)
@@ -38,7 +39,7 @@ inline void ListaEncadeada<Type>::del(std::string ident)
 {
 	Type* atual = this->val, *ant = nullptr;
 	
-	while (atual && atual->id != ident) {
+	while (atual && atual->getId() != ident) {
 		ant = atual;
 		atual = atual->prox;
 	}
@@ -58,7 +59,7 @@ inline void ListaEncadeada<Type>::print()
 {
 	Type* iterator{ this->val };
 	while (iterator) {
-		std::cout << iterator->id << '\n';
+		iterator->print();
 		iterator = iterator->prox;
 	}
 }

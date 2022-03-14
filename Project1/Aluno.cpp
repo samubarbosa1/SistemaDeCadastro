@@ -2,6 +2,33 @@
 
 Aluno::Aluno()
 {
+	setId();
+	setCpf();
+	setNome();
+}
+
+void Aluno::setCpf()
+{
+	std::string temp;
+
+	while (true) {
+		std::cout << "Qual e o cpf do Aluno (xxx.xxx.xxx-xx)?\n";
+		std::getline(std::cin >> std::ws, temp);
+
+		if (temp.length() != 14 || temp[3] != '.' || temp[7] != '.' || temp[11] != '-') {
+			std::cout << "Formatacao incorreta, digite enter para continuar?\n";
+			std::getline(std::cin, temp);
+		}
+		else {
+			break;
+		}
+	}
+
+	this->cpf = temp;
+}
+
+void Aluno::setId()
+{
 	std::string temp{};
 	while (true) {
 		std::cout << "Qual e o codigo do Aluno (xxxxx)?\n";
@@ -15,24 +42,32 @@ Aluno::Aluno()
 		}
 	}
 	this->id = temp;
-	while (true) {
-		std::cout << "Qual e o cpf do Aluno (xxx.xxx.xxx-xx)?\n";
-		std::getline(std::cin >> std::ws, temp);
-		if (temp.length() != 14 || temp[3] != '.' || temp[7] != '.' || temp[11] != '-') {
-			std::cout << "Formatacao incorreta, digite enter para continuar?\n";
-			std::getline(std::cin, temp);
-		}
-		else {
-			break;
-		}
-	}
-	this->cpf = temp;
+}
 
+void Aluno::setNome()
+{
 	std::cout << "Qual e o nome do Aluno?\n";
 	std::getline(std::cin >> std::ws, this->nome);
 }
 
+std::string Aluno::getCpf()
+{
+	return this->cpf;
+}
+
+std::string Aluno::getId()
+{
+	return this->id;
+}
+
+std::string Aluno::getNome()
+{
+	return this->nome;
+}
+
 void Aluno::print()
 {
-
+	std::cout << "\nID: " << id << "\n"
+		<< "Nome: " << nome << "\n"
+		<< "CPF: " << cpf << "\n";
 }

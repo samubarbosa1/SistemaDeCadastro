@@ -1,5 +1,16 @@
 #include "Periodo.h"
 
+
+Periodo::Periodo()
+{
+	setId();
+}
+
+Periodo::~Periodo()
+{
+	
+}
+
 void Periodo::setId()
 {
 	std::string periodo{};
@@ -17,12 +28,7 @@ void Periodo::setId()
 	this->id = periodo;
 }
 
-Periodo::Periodo()
+std::string Periodo::getId()
 {
-	setId();
-}
-
-Periodo::~Periodo()
-{
-	
+	return this->id;
 }

@@ -5,13 +5,22 @@
 
 class Periodo
 {
+private:
+	std::string id{};
+
 public:
+	Periodo* prox{};
 	ListaEncadeada<Aluno> alunos{};
 	ListaEncadeada<Disciplina> disciplinas{};
-	Periodo* prox{};
-	std::string id{};
-	void setId();
+
+	// construtor e destrutor
 	Periodo();
 	~Periodo();
+
+	//setter
+	void setId();
+
+	//getter
+	std::string getId();
 };
 

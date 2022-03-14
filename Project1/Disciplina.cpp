@@ -2,6 +2,18 @@
 
 Disciplina::Disciplina()
 {
+	setId();
+	setNome();
+	setProfessor();
+}
+
+Disciplina::~Disciplina()
+{
+
+}
+
+void Disciplina::setId()
+{
 	std::string temp{};
 	while (true) {
 		std::cout << "Qual e o codigo da Disciplina (xxxx)?\n";
@@ -15,15 +27,20 @@ Disciplina::Disciplina()
 		}
 	}
 	this->id = temp;
+}
 
+void Disciplina::setNome()
+{
 	std::cout << "Qual e o nome da Disciplina?\n";
 	std::getline(std::cin >> std::ws, this->nome);
+}
 
-	std::cout << "Qual e o nome do Professor desta Disciplina?\n";
+void Disciplina::setProfessor()
+{
+	std::cout << "Qual e o nome do Professor dessa Disciplina?\n";
 	std::getline(std::cin >> std::ws, this->professor);
 }
 
-Disciplina::~Disciplina()
+void Disciplina::setCreditos()
 {
-
 }
