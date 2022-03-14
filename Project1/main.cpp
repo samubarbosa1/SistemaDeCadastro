@@ -1,14 +1,9 @@
-#include "Periodo.h"
+#include "Terminal.h"
 
 int main()
 {
-    ListaEncadeada<Periodo> ListaPeriodo;
-    ListaPeriodo.add();
-    ListaEncadeada<Aluno>& alunos = ListaPeriodo.val->alunos;
-    alunos.add();
-    alunos.add();
-    alunos.print();
-
+    Terminal *myTerminal = new Terminal;
+    myTerminal->showMenu();
     return 0;
 }
 

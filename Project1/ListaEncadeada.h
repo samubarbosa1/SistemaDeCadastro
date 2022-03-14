@@ -4,7 +4,7 @@ template <typename Type>
 class ListaEncadeada
 {
 public:
-	Type* val{};
+	Type* val{nullptr};
 	void add();
 	Type* find(std::string ident);
 	void del(std::string ident);
@@ -17,19 +17,29 @@ template<typename Type>
 inline void ListaEncadeada<Type>::add()
 {
 	Type* newElement = new Type();
-	newElement->prox = this->val;
-	this->val = newElement;
+	std::string temp{};
+
+	if (find(newElement->getId()) != nullptr) {
+		std::cout << "Periodo ja existente!(precione enter para continuar)\n";
+		delete(newElement);
+		std::getline(std::cin, temp);
+	}
+	else {
+		newElement->prox = this->val;
+		this->val = newElement;
+		std::cout << "\nPeriodo " << newElement->getId() << " criado! (precione enter para continuar)\n";
+		std::getline(std::cin, temp);
+	}
 }
 
 template<typename Type>
 inline Type* ListaEncadeada<Type>::find(std::string ident)
 {
 	Type* iterator{ this->val };
-	while (iterator->getId() != ident)
+
+	while (iterator != nullptr && iterator->getId() != ident)
 	{
 		iterator = iterator->prox;
-		if (iterator == nullptr)
-			break;
 	}
 	return iterator;
 }

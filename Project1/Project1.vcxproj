@@ -143,12 +143,14 @@
     <ClCompile Include="Disciplina.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Periodo.cpp" />
+    <ClCompile Include="Terminal.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Aluno.h" />
     <ClInclude Include="Disciplina.h" />
     <ClInclude Include="ListaEncadeada.h" />
     <ClInclude Include="Periodo.h" />
+    <ClInclude Include="Terminal.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
