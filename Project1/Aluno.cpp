@@ -1,0 +1,38 @@
+#include "Aluno.h"
+
+Aluno::Aluno()
+{
+	std::string temp{};
+	while (true) {
+		std::cout << "Qual e o codigo do Aluno (xxxxx)?\n";
+		std::getline(std::cin >> std::ws, temp);
+		if (temp.length() != 5) {
+			std::cout << "Formatacao incorreta, digite enter para continuar?\n";
+			std::getline(std::cin, temp);
+		}
+		else {
+			break;
+		}
+	}
+	this->id = temp;
+	while (true) {
+		std::cout << "Qual e o cpf do Aluno (xxx.xxx.xxx-xx)?\n";
+		std::getline(std::cin >> std::ws, temp);
+		if (temp.length() != 14 || temp[3] != '.' || temp[7] != '.' || temp[11] != '-') {
+			std::cout << "Formatacao incorreta, digite enter para continuar?\n";
+			std::getline(std::cin, temp);
+		}
+		else {
+			break;
+		}
+	}
+	this->cpf = temp;
+
+	std::cout << "Qual e o nome do Aluno?\n";
+	std::getline(std::cin >> std::ws, this->nome);
+}
+
+void Aluno::print()
+{
+
+}
