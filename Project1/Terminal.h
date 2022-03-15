@@ -16,7 +16,12 @@ public:
 	void showMenu();
 	void showMenuAdd();
 	void showMenuFind();
-	void menuPeriodo(Periodo*);
+	void showMenuPeriodo(Periodo* periodo);
+	void addAluno(Periodo* periodo);
+	void delAluno(Periodo* periodo);
+	void addDisciplina(Periodo* periodo);
+	void delDisciplina(Periodo* periodo);
+	void showMenuDel();
 
 };
 
