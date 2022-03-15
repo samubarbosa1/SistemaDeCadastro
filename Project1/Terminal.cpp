@@ -33,38 +33,45 @@ void Terminal::showMenu()
         std::cout << "b) Consultar Periodo\n";
         std::cout << "c) Remover Periodo\n";
         std::cout << "d) Sair\n";
+        std::cout << "l) Ler\n";
         std::cout << "s) Salvar\n";
         std::cout << "Opcao: ";
         std::cin >> escolha;
         switch (escolha) {
-        case('a'): [[fallthrough]];
-        case('A'): {
-            showMenuAdd();
-            break;
-        }
-        case('b'): [[fallthrough]];
-        case('B'): {
-            showMenuFind();
-            break;
-        }
-        case('c'): [[fallthrough]];
-        case('C'): {
-            showMenuDel();
-            break;
-        }
-        case('d'): [[fallthrough]];
-        case('D'): {
-            return;
-        }
-        case('s'): [[fallthrough]];
-        case('S'): {
-            saveState();
-            break;
-        }
-        default: {
-            std::cout << "Opcao Invalida! (precione enter para continuar)";
-            std::cin.get(escolha);
-        }
+            case('a'): [[fallthrough]];
+            case('A'): {
+                showMenuAdd();
+                break;
+            }
+            case('b'): [[fallthrough]];
+            case('B'): {
+                showMenuFind();
+                break;
+            }
+            case('c'): [[fallthrough]];
+            case('C'): {
+                showMenuDel();
+                break;
+            }
+            case('d'): [[fallthrough]];
+            case('D'): {
+                return;
+            }
+            case('l'): [[fallthrough]];
+            case('L'): {
+                readState();
+                break;
+            }
+            case('s'): [[fallthrough]];
+            case('S'): {
+                saveState();
+                break;
+            }
+            default: {
+                std::cout << "Opcao Invalida! (precione enter para continuar)";
+                std::cin.get(escolha);
+                ignoreOtherInputs();
+            }
         }
     }
 }
@@ -131,6 +138,87 @@ Perguntar:
 void Terminal::showMenuPeriodo(Periodo* periodo)
 {
     char escolha{};
+    std::string temp{};
+    while (true) {
+        clear();
+        showDadosPeriodo(periodo);
+        std::cout << "\n Gostaria de verificar:\n";
+        std::cout << "a) Alunos\n";
+        std::cout << "b) Aluno especifico\n";
+        std::cout << "c) Disciplinas\n";
+        std::cout << "d) Disciplina especifica\n";
+        std::cout << "e) Editar\n";
+        std::cout << "f) Sair\n";
+        std::cout << "Opcao: ";
+        std::cin >> escolha;
+        ignoreOtherInputs();
+        switch (escolha) {
+        case ('a'): [[fallthrough]];
+        case ('A'): {
+            clear();
+            periodo->alunos.print();
+            std::getline(std::cin, temp);
+            break;
+        }
+        case ('b'): [[fallthrough]];
+        case ('B'): {
+            std::string codigo{};
+            std::cout << "Qual codigo do aluno?\n";
+            std::getline(std::cin >> std::ws, codigo);
+            Aluno* aluno = periodo->alunos.find(codigo);
+            if (!aluno) {
+                std::cout << "Codigo invalido! (1)\n";
+                std::getline(std::cin, temp);
+            }
+            else {
+                clear();
+                aluno->print();
+                std::getline(std::cin, temp);
+            }
+            break;
+        }
+        case ('c'): [[fallthrough]];
+        case ('C'): {
+            clear();
+            periodo->disciplinas.print();
+            std::getline(std::cin, temp);
+            break;
+        }
+        case ('d'): [[fallthrough]];
+        case ('D'): {
+            std::string codigo{};
+            std::cout << "Qual codigo da disciplina?\n";
+            std::getline(std::cin >> std::ws, codigo);
+            Disciplina* disciplina = periodo->disciplinas.find(codigo);
+            if (!disciplina) {
+                std::cout << "Codigo invalido!\n";
+                std::getline(std::cin, temp);
+            }
+            else {
+                clear();
+                disciplina->print();
+                std::getline(std::cin, temp);
+            }
+            break;
+        }
+        case ('e'): [[fallthrough]];
+        case ('E'): {
+            showMenuEditarPeriodo(periodo);
+            break;
+        }
+        case ('f'): [[fallthrough]];
+        case('F'): return;
+        default: {
+            std::cout << "Input invalido!\n";
+            std::getline(std::cin >> std::ws, temp);
+        }
+        }
+    }
+}
+
+void Terminal::showMenuEditarPeriodo(Periodo* periodo)
+{
+    char escolha{};
     while (true) {
         clear();
         std::cout << "Periodo " << periodo->getId();
@@ -170,6 +258,13 @@ void Terminal::showMenuPeriodo(Periodo* periodo)
     }
 }
 
+void Terminal::showDadosPeriodo(Periodo* periodo)
+{
+    std::cout << "Periodo " << periodo->getId() << "\n";
+    std::cout << "Total de alunos " << periodo->alunos.size() << "\n";
+    std::cout << "Total de Disciplinas " << periodo->disciplinas.size() << "\n\n";
+}
+
 void Terminal::addAluno(Periodo* periodo)
 {
     std::string temp{};
@@ -179,7 +274,7 @@ void Terminal::addAluno(Periodo* periodo)
         if (periodo->alunos.find(novo->getId()))
         {
             delete(novo);
-            std::cout << "Aluno j� existente!\n"
+            std::cout << "Aluno ja existente!\n"
                 << "Caso nao queira adicionar um aluno, digite \"n\" \n(precione enter para continuar)\n";
             std::getline(std::cin, temp);
             if (!(temp.empty())) if (temp == "n") return;
@@ -188,7 +283,7 @@ void Terminal::addAluno(Periodo* periodo)
         {
             periodo->alunos.add(novo);
             std::cout << "Novo Aluno Adicionado!\n(precione enter para continuar)\n";
-            std::getline(std::cin >> std::ws, temp);
+            std::getline(std::cin, temp);
             return;
         }
     }
@@ -331,7 +426,7 @@ void Terminal::showMenuDel()
     }
 }
 
-void Terminal::saveState()
+auto Terminal::getFile()
 {
     std::string arquivo{};
     std::ofstream file{};
@@ -347,31 +442,134 @@ void Terminal::saveState()
             break;
         }
     }
-    Periodo* iterator{this->listaPeriodo->val};
-    intWrite(file, getListaSize());
-    std::cout << "Finish\n";
-    while (iterator) {
-        std::string periodoName{iterator->getId()};
-        stringWrite(file, periodoName);
-        iterator = iterator->prox;
+    return file;
+}
+
+void Terminal::saveState()
+{
+    std::string temp{};
+    std::ofstream file{getFile()};
+    if (!file) {
+        return;
     }
+    
+    // Escrever todos Periodos
+    Periodo* iteratorPeriodo{listaPeriodo->val};
+    intWrite(file, listaPeriodo->size());
+    while (iteratorPeriodo) {
+        std::string periodoName{iteratorPeriodo->getId()};
+        stringWrite(file, periodoName);
+
+        // Escrever todos Alunos
+        Aluno* iteratorAlunos{ listaPeriodo->val->alunos.val };
+        intWrite(file, listaPeriodo->val->alunos.size());
+        while (iteratorAlunos) {
+            std::string alunoId{ iteratorAlunos->getId() };
+            std::string alunoCpf{ iteratorAlunos->getCpf() };
+            std::string alunoName{ iteratorAlunos->getNome() };
+
+            stringWrite(file, alunoId);
+            stringWrite(file, alunoCpf);
+            stringWrite(file, alunoName);
+            iteratorAlunos = iteratorAlunos->prox;
+        }
+
+        // Escrever todas Disciplinas
+        Disciplina* iteratorDisciplinas{ listaPeriodo->val->disciplinas.val };
+        intWrite(file, listaPeriodo->val->disciplinas.size());
+        while (iteratorDisciplinas) {
+            std::string disciplinaId{ iteratorDisciplinas->getId() };
+            std::string disciplinaNome{ iteratorDisciplinas->getNome() };
+            std::string disciplinaProfessor{ iteratorDisciplinas->getProfessor() };
+            int         disciplinaCreditos{ iteratorDisciplinas->getCreditos() };
+
+            stringWrite(file, disciplinaId);
+            stringWrite(file, disciplinaNome);
+            stringWrite(file, disciplinaProfessor);
+            intWrite(file, disciplinaCreditos);
+
+            iteratorDisciplinas = iteratorDisciplinas->prox;
+        }
+        iteratorPeriodo = iteratorPeriodo->prox;
+    }
+    std::cout << "Procedimento concluido!\n";
+    std::getline(std::cin, temp);
     file.close();
 }
 
-int Terminal::getListaSize()
+void Terminal::readState()
 {
-    int size{};
-    Periodo* iterator{ this->listaPeriodo->val };
-    while (iterator) {
-        size++;
-        iterator = iterator->prox;
+    std::string arquivo{};
+    std::ifstream file{};
+    while (true) {
+        std::cout << "Qual nome do arquivo?\n";
+        std::getline(std::cin >> std::ws, arquivo);
+        file.open(arquivo);
+        if (!file) {
+            std::cout << "Nao foi possivel abrir o arquivo! (precione enter para continuar)\n";
+            std::getline(std::cin, arquivo);
+            return;
+        }
+        else {
+            break;
+        }
     }
-    return size;
+    int dump{};
+    int periodoSize{};
+    file.read((char *) &periodoSize, sizeof(int));
+    std::cout << "Size Periodo: " << periodoSize << '\n';
+    for (int i{}; i < periodoSize; i++) {
+        std::string periodoName{};
+        file >> periodoName;
+        std::cout << "Name Per: " << periodoName << '\n';
+        int alunoSize{};
+        file.read((char*)&dump, 1);
+        file.read((char*)&alunoSize, sizeof(int));
+        std::cout << "Size Alunos: " << alunoSize << '\n';
+
+        for (int j{}; j < alunoSize; j++) {
+            std::string id{};
+            std::string cpf{};
+            std::string name{};
+            file >> id;
+            std::cout << "Al Id: " << id << '\n';
+            file >> cpf;
+            std::cout << "Al Cpf: " << cpf << '\n';
+            file >> name;
+            std::cout << "Al Name: " << name << '\n';
+        }
+        file.read((char*)&dump, 1);
+
+        int disciplinaSize{};
+        file.read((char*)&disciplinaSize, sizeof(int));
+        std::cout << "Size Disciplinas: " << disciplinaSize << '\n';
+        
+        for (int j{}; j < disciplinaSize; j++) {
+            std::string id{};
+            std::string name{};
+            std::string professor{};
+            int creditos{};
+            file >> id;
+            std::cout << "Dis Id: " << id << '\n';
+            file >> name;
+            std::cout << "Dis Name: " << name << '\n';
+            file >> professor;
+            std::cout << "Dis Professor: " << professor << '\n';
+            file.read((char*)&dump, 1);
+            file.read((char*)&creditos, sizeof(int));
+            std::cout << "Dis Creditos: " << creditos << '\n';
+        }
+    }
+    std::cout << "Leitura concluida\n";
+    std::getline(std::cin, arquivo);
+
 }
 
 bool Terminal::stringWrite(std::ofstream& file, std::string& str)
 {
-    file.write(str.c_str(), str.length() + 1);
+    file.write(str.c_str(), str.length());
+    file.write(" ", 1);
+
 
     if (!file.good()) {
         std::cout << "Erro ocorreu na escrita!\n";
@@ -383,7 +581,7 @@ bool Terminal::stringWrite(std::ofstream& file, std::string& str)
 
 bool Terminal::intWrite(std::ofstream& file, int val)
 {
-    file.write((char *) &val, sizeof(int));
+    file.write(reinterpret_cast<const char*>(&val), sizeof(int));
     if (!file.good()) {
         std::string temp{};
         std::cout << "Erro ocorreu na escrita!\n";

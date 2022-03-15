@@ -20,14 +20,17 @@ public:
 	void showMenuAdd();
 	void showMenuFind();
 	void showMenuPeriodo(Periodo* periodo);
+	void showMenuEditarPeriodo(Periodo* periodo);
+	void showDadosPeriodo(Periodo* periodo);
 	void addAluno(Periodo* periodo);
 	void delAluno(Periodo* periodo);
 	void addDisciplina(Periodo* periodo);
 	void delDisciplina(Periodo* periodo);
 	void showMenuDel();
 	void menuPeriodo(Periodo*);
+	auto getFile();
 	void saveState();
-	int  getListaSize();
+	void readState();
 	bool stringWrite(std::ofstream& file, std::string& str);
 	bool intWrite(std::ofstream& file, int val);
 };

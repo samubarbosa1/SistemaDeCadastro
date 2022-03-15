@@ -16,7 +16,7 @@ void Aluno::setCpf()
 		std::getline(std::cin >> std::ws, temp);
 
 		if (temp.length() != 14 || temp[3] != '.' || temp[7] != '.' || temp[11] != '-') {
-			std::cout << "Formatacao incorreta, digite enter para continuar?\n";
+			std::cout << "Formatacao incorreta?\n";
 			std::getline(std::cin, temp);
 		}
 		else {
@@ -67,7 +67,7 @@ std::string Aluno::getNome()
 
 void Aluno::print()
 {
-	std::cout << "\nID: " << id << "\n"
+	std::cout << "ID: " << id << "\n"
 		<< "Nome: " << nome << "\n"
-		<< "CPF: " << cpf << "\n";
+		<< "CPF: " << cpf << "\n\n";
 }

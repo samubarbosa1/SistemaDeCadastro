@@ -9,6 +9,7 @@ public:
 	Type* find(std::string ident);
 	void del(std::string ident);
 	void print();
+	int size();
 	~ListaEncadeada();
 };
 
@@ -60,6 +61,18 @@ inline void ListaEncadeada<Type>::print()
 		iterator->print();
 		iterator = iterator->prox;
 	}
+}
+
+template<typename Type>
+inline int ListaEncadeada<Type>::size()
+{
+	int size{};
+	Type* iterator{ this->val };
+	while (iterator) {
+		size++;
+		iterator = iterator->prox;
+	}
+	return size;
 }
 
 template<typename Type>

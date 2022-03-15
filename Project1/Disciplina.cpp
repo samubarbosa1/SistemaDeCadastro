@@ -33,6 +33,26 @@ void Disciplina::setId()
 	this->id = temp;
 }
 
+std::string Disciplina::getId()
+{
+	return this->id;
+}
+
+std::string Disciplina::getNome()
+{
+	return nome;
+}
+
+std::string Disciplina::getProfessor()
+{
+	return professor;
+}
+
+int			Disciplina::getCreditos()
+{
+	return creditos;
+}
+
 void Disciplina::setNome()
 {
 	std::cout << "Qual e o nome da Disciplina?\n";
@@ -47,4 +67,12 @@ void Disciplina::setProfessor()
 
 void Disciplina::setCreditos()
 {
+}
+
+void Disciplina::print()
+{
+	std::cout << "Codigo " << this->id << "\n";
+	std::cout << "Materia " << this->nome << "\n";
+	std::cout << "Professor " << this->professor << "\n";
+	std::cout << "Creditos " << this->creditos << "\n\n";
 }

@@ -25,5 +25,14 @@ public:
     void setProfessor();
     void setCreditos();
 
+    //getter
+    std::string getId();
+    std::string getNome();
+    std::string getProfessor();
+    int         getCreditos();
+
+
+
+    void print();
 };
 

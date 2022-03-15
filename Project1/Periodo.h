@@ -19,7 +19,6 @@ public:
 
 	//setter
 	void setId();
-
 	//getter
 	std::string getId();
 };
