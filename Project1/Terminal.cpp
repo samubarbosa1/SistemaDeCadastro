@@ -1,5 +1,12 @@
 #include "Terminal.h"
 
+
+
+Terminal::Terminal()
+{
+
+}
+
 Terminal::~Terminal()
 {
     delete(listaPeriodo);
@@ -26,6 +33,7 @@ void Terminal::showMenu()
         std::cout << "b) Consultar Periodo\n";
         std::cout << "c) Remover Periodo\n";
         std::cout << "d) Sair\n";
+        std::cout << "s) Salvar\n";
         std::cout << "Opcao: ";
         std::cin >> escolha;
         switch (escolha) {
@@ -47,6 +55,11 @@ void Terminal::showMenu()
         case('d'): [[fallthrough]];
         case('D'): {
             return;
+        }
+        case('s'): [[fallthrough]];
+        case('S'): {
+            saveState();
+            break;
         }
         default: {
             std::cout << "Opcao Invalida! (precione enter para continuar)";
@@ -166,7 +179,7 @@ void Terminal::addAluno(Periodo* periodo)
         if (periodo->alunos.find(novo->getId()))
         {
             delete(novo);
-            std::cout << "Aluno já existente!\n"
+            std::cout << "Aluno jï¿½ existente!\n"
                 << "Caso nao queira adicionar um aluno, digite \"n\" \n(precione enter para continuar)\n";
             std::getline(std::cin, temp);
             if (!(temp.empty())) if (temp == "n") return;
@@ -318,3 +331,64 @@ void Terminal::showMenuDel()
     }
 }
 
+void Terminal::saveState()
+{
+    std::string arquivo{};
+    std::ofstream file{};
+    while (true) {
+        std::cout << "Qual nome do arquivo?\n";
+        std::getline(std::cin >> std::ws, arquivo);
+        file.open(arquivo);
+        if (!file) {
+            std::cout << "Nao foi possivel abrir o arquivo! (precione enter para continuar)\n";
+            std::getline(std::cin, arquivo);
+        }
+        else {
+            break;
+        }
+    }
+    Periodo* iterator{this->listaPeriodo->val};
+    intWrite(file, getListaSize());
+    std::cout << "Finish\n";
+    while (iterator) {
+        std::string periodoName{iterator->getId()};
+        stringWrite(file, periodoName);
+        iterator = iterator->prox;
+    }
+    file.close();
+}
+
+int Terminal::getListaSize()
+{
+    int size{};
+    Periodo* iterator{ this->listaPeriodo->val };
+    while (iterator) {
+        size++;
+        iterator = iterator->prox;
+    }
+    return size;
+}
+
+bool Terminal::stringWrite(std::ofstream& file, std::string& str)
+{
+    file.write(str.c_str(), str.length() + 1);
+
+    if (!file.good()) {
+        std::cout << "Erro ocorreu na escrita!\n";
+        std::getline(std::cin, str);
+        return false;
+    }
+    return true;
+}
+
+bool Terminal::intWrite(std::ofstream& file, int val)
+{
+    file.write((char *) &val, sizeof(int));
+    if (!file.good()) {
+        std::string temp{};
+        std::cout << "Erro ocorreu na escrita!\n";
+        std::getline(std::cin, temp);
+        return false;
+    }
+    return true;
+}

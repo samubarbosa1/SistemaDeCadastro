@@ -8,7 +8,6 @@ Periodo::Periodo()
 
 Periodo::~Periodo()
 {
-	
 }
 
 void Periodo::setId()

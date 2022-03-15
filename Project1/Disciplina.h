@@ -4,10 +4,10 @@
 
 class Disciplina {
 private:
-    std::string id;
-    std::string nome;
-    std::string professor;
-    int creditos;
+    std::string id{};
+    std::string nome{};
+    std::string professor{};
+    int creditos{};
 
 
 public:
@@ -15,6 +15,8 @@ public:
 
     //construtor e destrutor
     Disciplina();
+    Disciplina(std::string id, std::string nome, std::string professor);
+
     virtual ~Disciplina();
 
     //setter

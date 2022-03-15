@@ -1,5 +1,9 @@
 #include "Disciplina.h"
 
+Disciplina::Disciplina(std::string id, std::string nome, std::string professor) :
+	id{id}, nome{nome}, professor{professor} 
+{}
+
 Disciplina::Disciplina()
 {
 	setId();
