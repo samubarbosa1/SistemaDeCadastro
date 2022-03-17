@@ -514,50 +514,29 @@ void Terminal::readState()
             break;
         }
     }
-    int dump{};
+    // Periodos
     int periodoSize{};
-    file.read((char *) &periodoSize, sizeof(int));
+    intRead(file, &periodoSize);
     std::cout << "Size Periodo: " << periodoSize << '\n';
     for (int i{}; i < periodoSize; i++) {
         std::string periodoName{};
-        file >> periodoName;
+        stringRead(file, periodoName);
+
         std::cout << "Name Per: " << periodoName << '\n';
         int alunoSize{};
-        file.read((char*)&dump, 1);
-        file.read((char*)&alunoSize, sizeof(int));
+        // Alunos
+        intRead(file, &alunoSize);
         std::cout << "Size Alunos: " << alunoSize << '\n';
-
         for (int j{}; j < alunoSize; j++) {
-            std::string id{};
-            std::string cpf{};
-            std::string name{};
-            file >> id;
-            std::cout << "Al Id: " << id << '\n';
-            file >> cpf;
-            std::cout << "Al Cpf: " << cpf << '\n';
-            file >> name;
-            std::cout << "Al Name: " << name << '\n';
+            readAluno(file);
         }
-        file.read((char*)&dump, 1);
-
+        // Disciplinas
         int disciplinaSize{};
-        file.read((char*)&disciplinaSize, sizeof(int));
+        intRead(file, &disciplinaSize);
         std::cout << "Size Disciplinas: " << disciplinaSize << '\n';
-        
+
         for (int j{}; j < disciplinaSize; j++) {
-            std::string id{};
-            std::string name{};
-            std::string professor{};
-            int creditos{};
-            file >> id;
-            std::cout << "Dis Id: " << id << '\n';
-            file >> name;
-            std::cout << "Dis Name: " << name << '\n';
-            file >> professor;
-            std::cout << "Dis Professor: " << professor << '\n';
-            file.read((char*)&dump, 1);
-            file.read((char*)&creditos, sizeof(int));
-            std::cout << "Dis Creditos: " << creditos << '\n';
+            readDisciplinas(file);
         }
     }
     std::cout << "Leitura concluida\n";
@@ -568,8 +547,7 @@ void Terminal::readState()
 bool Terminal::stringWrite(std::ofstream& file, std::string& str)
 {
     file.write(str.c_str(), str.length());
-    file.write(" ", 1);
-
+    writeSeparator(file);
 
     if (!file.good()) {
         std::cout << "Erro ocorreu na escrita!\n";
@@ -582,6 +560,7 @@ bool Terminal::stringWrite(std::ofstream& file, std::string& str)
 bool Terminal::intWrite(std::ofstream& file, int val)
 {
     file.write(reinterpret_cast<const char*>(&val), sizeof(int));
+    writeSeparator(file);
     if (!file.good()) {
         std::string temp{};
         std::cout << "Erro ocorreu na escrita!\n";
@@ -589,4 +568,60 @@ bool Terminal::intWrite(std::ofstream& file, int val)
         return false;
     }
     return true;
+}
+
+void Terminal::intRead(std::ifstream& file, int* val)
+{
+    if (dumpForInt) {
+        dumpByte(file);
+        dumpForInt = false;
+    }
+    file.read((char*) val, sizeof(int));
+    dumpByte(file);
+}
+
+void Terminal::dumpByte(std::ifstream& file)
+{
+    int dump;
+    file.read((char*)&dump, 1);
+}
+
+void Terminal::readAluno(std::ifstream& file)
+{
+    std::string id{};
+    std::string cpf{};
+    std::string name{};
+    stringRead(file, id);
+    std::cout << "Al Id: " << id << '\n';
+    stringRead(file, cpf);
+    std::cout << "Al Cpf: " << cpf << '\n';
+    stringRead(file, name);
+    std::cout << "Al Name: " << name << '\n';
+}
+
+void Terminal::readDisciplinas(std::ifstream& file)
+{
+    std::string id{};
+    std::string name{};
+    std::string professor{};
+    int creditos{};
+    stringRead(file, id);
+    std::cout << "Dis Id: " << id << '\n';
+    stringRead(file, name);
+    std::cout << "Dis Name: " << name << '\n';
+    stringRead(file, professor);
+    std::cout << "Dis Professor: " << professor << '\n';
+    intRead(file, &creditos);
+    std::cout << "Dis Creditos: " << creditos << '\n';
+}
+
+void Terminal::stringRead(std::ifstream& file, std::string& str)
+{
+    file >> str;
+    dumpForInt = true;
+}
+
+void Terminal::writeSeparator(std::ofstream& file)
+{
+    file.write(m_separator, 1);
 }

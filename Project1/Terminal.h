@@ -8,7 +8,8 @@ class Terminal
 private:
 	ListaEncadeada<Periodo>* listaPeriodo = new ListaEncadeada<Periodo>;
 	bool inMenu;
-
+	const char * m_separator{ "\n" }; // funciona tb se for espaco " "
+	bool dumpForInt{ false };
 
 public:
 	Terminal();
@@ -33,5 +34,11 @@ public:
 	void readState();
 	bool stringWrite(std::ofstream& file, std::string& str);
 	bool intWrite(std::ofstream& file, int val);
+	void intRead(std::ifstream& file, int* val);
+	void dumpByte(std::ifstream& file);
+	void readAluno(std::ifstream& file);
+	void readDisciplinas(std::ifstream& file);
+	void stringRead(std::ifstream& file, std::string& str);
+	void writeSeparator(std::ofstream& file);
 };
 
