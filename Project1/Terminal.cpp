@@ -291,103 +291,95 @@ void Terminal::addAluno(Periodo* periodo)
 
 void Terminal::delAluno(Periodo* periodo)
 {
-/*
-    std::string codigo{};
-    std::cout << "Qual o codigo desse aluno?\n";
-    std::getline(std::cin >> std::ws, codigo);
-    if (codigo.size() != 5) {
-        std::cout << "Formato de codigo invalido! (1)\n";
-        std::getline(std::cin, temp);
-    }
-    else {
-        int index = existeAluno(periodo, codigo);
-        if (index == -1) {
-            std::cout << "Aluno nao existe!\n";
-            std::getline(std::cin, temp);
+    ignoreOtherInputs();
+    std::string aluno;
+    while (true)
+    {
+        Aluno* iterator = listaPeriodo->val->alunos.val;
+        clear();
+        std::cout << "Qual aluno voce deseja deletar?\n";
+        while (iterator)
+        {
+            std::cout << "- " << iterator->getNome() << " (" << iterator->getId() << ")\n";
+            iterator = iterator->prox;
         }
-        else {
-            printAluno(&((*(periodo.alunos))[index]));
-            std::vector<Aluno> alunos = (*(periodo.alunos));
-            alunos.erase(alunos.begin() + index);
-            std::cout << "Aluno removido com sucesso!\n";
-            std::getline(std::cin, temp);
+        std::getline(std::cin >> std::ws, aluno);
+        if (this->listaPeriodo->val->alunos.find(aluno) != nullptr)
+        {
+            this->clear();
+            this->listaPeriodo->val->alunos.del(aluno);
+            std::cout << "Aluno Deletado!\n";
+            std::getline(std::cin, aluno);
+            return;
+        }
+        else
+        {
+            this->clear();
+            std::cout << "Aluno nao encontrado.\n"
+                << "Caso nao queira deletar um aluno, digite \"n\" (precione enter para continuar)\n";
+            std::getline(std::cin, aluno);
+
+            if (!(aluno.empty())) if (aluno== "n") return;
         }
     }
-*/    
 }
 
 void Terminal::addDisciplina(Periodo* periodo)
 {
-    /*
-    std::string codigo{};
-    std::cout << "Qual codigo dessa disciplina?\n";
-    std::getline(std::cin >> std::ws, codigo);
-    if (codigo.size() != 4) {
-        std::cout << "Formato de codigo invalido! (1)\n";
-        std::getline(std::cin, temp);
-    }
-    else {
-        int index = existeDisciplina(periodo, codigo.c_str());
-        if (index == -1) {
-            std::string nome{};
-            std::string professor{};
-            int creditos{};
-            std::cout << "Insira o nome da disciplina: ";
-            std::getline(std::cin >> std::ws, nome);
-            std::cout << "Insira o nome do professor: ";
-            std::getline(std::cin >> std::ws, professor);
-            std::cout << "Creditos da disciplina: ";
-            std::cin >> creditos;
-            if (nome.size() > 99) {
-                std::cout << "Nome grande demais!\n";
-                std::getline(std::cin, temp);
-            }
-            else if (professor.size() > 99) {
-                std::cout << "Nome do professor grande demais!\n";
-                std::getline(std::cin, temp);
-            }
-            else if (creditos < 0) {
-                std::cout << "Credito negativo nao pode!\n";
-                std::getline(std::cin, temp);
-            }
-            else {
-                (*(periodo.disciplinas)).push_back(*criarDisciplina(codigo.c_str(), nome.c_str(), professor.c_str(), creditos));
-                std::cout << "Disciplina adicionada!\n";
-                std::getline(std::cin, temp);
-            }
-        }
-        else {
-            std::cout << "Disciplina ja existe! \n";
+    std::string temp{};
+    while (true)
+    {
+        Disciplina* novo = new Disciplina;
+        if (periodo->disciplinas.find(novo->getId()))
+        {
+            delete(novo);
+            std::cout << "Disciplina ja existente!\n"
+                << "Caso nao queira adicionar uma disciplina, digite \"n\" \n(precione enter para continuar)\n";
             std::getline(std::cin, temp);
+            if (!(temp.empty())) if (temp == "n") return;
+        }
+        else
+        {
+            periodo->disciplinas.add(novo);
+            std::cout << "Nova Disciplina Adicionada!\n(precione enter para continuar)\n";
+            std::getline(std::cin, temp);
+            return;
         }
     }
-    */
-    
 }
 
 void Terminal::delDisciplina(Periodo* periodo)
 {
-    /*
-    std::string codigo{};
-    std::cout << "Qual o codigo dessa disciplina?\n";
-    std::getline(std::cin >> std::ws, codigo);
-    if (codigo.size() != 4) {
-        std::cout << "Formato de codigo invalido! (1)\n";
-        std::getline(std::cin, temp);
-    }
-    else {
-        int index = existeDisciplina(periodo, codigo.c_str());
-        if (index == -1) {
-            std::cout << "Disciplina nao existe!\n";
-            std::getline(std::cin, temp);
+    std::string disciplina;
+    while (true)
+    {
+        Disciplina* iterator = listaPeriodo->val->disciplinas.val;
+        clear();
+        std::cout << "Qual disciplina voce deseja deletar?\n";
+        while (iterator)
+        {
+            std::cout << "- " << iterator->getNome() << " (" << iterator->getId() << ")\n";
+            iterator = iterator->prox;
         }
-        else {
-            removerDisciplina(&periodo, &(*(periodo.disciplinas))[index]);
-            std::cout << "Disciplina removida com sucesso!\n";
-            std::getline(std::cin, temp);
+        std::getline(std::cin >> std::ws, disciplina);
+        if (this->listaPeriodo->val->alunos.find(disciplina) != nullptr)
+        {
+            this->clear();
+            this->listaPeriodo->val->alunos.del(disciplina);
+            std::cout << "Disciplina Deletada!\n";
+            std::getline(std::cin, disciplina);
+            return;
+        }
+        else
+        {
+            this->clear();
+            std::cout << "Disciplina nao encontrada.\n"
+                << "Caso nao queira deletar uma disciplina, digite \"n\" (precione enter para continuar)\n";
+            std::getline(std::cin, disciplina);
+
+            if (!(disciplina.empty())) if (disciplina == "n") return;
         }
     }
-    */
     
 }
 
@@ -418,7 +410,7 @@ void Terminal::showMenuDel()
         {
             this->clear();
             std::cout << "Periodo nao encontrado.\n"
-                << "Caso nao queira procurar um periodo, digite \"n\" (precione enter para continuar)\n";
+                << "Caso nao queira deletar um periodo, digite \"n\" (precione enter para continuar)\n";
             std::getline(std::cin, periodo);
      
             if (!(periodo.empty())) if (periodo == "n") return;
