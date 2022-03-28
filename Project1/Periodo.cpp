@@ -16,7 +16,9 @@ Periodo::~Periodo()
 
 void Periodo::printPeriodo()
 {
-	
+	std::cout << "Periodo: " << this->id << "\n"
+		<< "Disciplina(s): " << this->disciplinas.size() << "\n"
+		<< "Aluno(s): " << this->alunos.size() << "\n\n";
 }
 
 void Periodo::setId()

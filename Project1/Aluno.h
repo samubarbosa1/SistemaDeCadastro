@@ -3,11 +3,6 @@
 #include "Disciplina.h"
 
 class Aluno {
-private:
-    std::string id;
-    std::string nome;
-    std::string cpf;
-
 public:
     Aluno* prox;
     Aluno();
@@ -25,5 +20,10 @@ public:
 
 
     void print();
+
+private:
+    std::string id;
+    std::string nome;
+    std::string cpf;
 };
 

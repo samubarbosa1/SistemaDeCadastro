@@ -3,13 +3,6 @@
 #include <string>
 
 class Disciplina {
-private:
-    std::string id{};
-    std::string nome{};
-    std::string professor{};
-    int creditos{};
-
-
 public:
     Disciplina* prox{};
 
@@ -30,9 +23,12 @@ public:
     std::string getNome();
     std::string getProfessor();
     int getCreditos();
-
-
-
     void print();
+
+private:
+    std::string id{};
+    std::string nome{};
+    std::string professor{};
+    int creditos{};
 };
 

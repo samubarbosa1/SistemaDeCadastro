@@ -4,7 +4,6 @@
 
 Terminal::Terminal()
 {
-
 }
 
 Terminal::~Terminal()
@@ -109,7 +108,13 @@ void Terminal::showMenuFind()
 Perguntar:
     while (true) {
         clear();
-        std::cout << "Qual periodo deseja buscar? (xxxx.x)\n\n";
+        Periodo* iterator = listaPeriodo->val;
+        std::cout << "Qual periodo voce deseja buscar?(xxxx.x)\n\n";
+        while (iterator)
+        {
+            iterator->printPeriodo();
+            iterator = iterator->prox;
+        }
         std::getline(std::cin, periodo);
 
         if (periodo.size() == 6 && periodo[4] == '.') {
@@ -156,6 +161,8 @@ void Terminal::showMenuPeriodo(Periodo* periodo)
         case ('a'): [[fallthrough]];
         case ('A'): {
             clear();
+            if (periodo->alunos.size() == 0)
+                std::cout << "Nenhum aluno encontrado. (Pressione <enter> para continuar)\n";
             periodo->alunos.print();
             std::getline(std::cin, temp);
             break;
@@ -180,6 +187,8 @@ void Terminal::showMenuPeriodo(Periodo* periodo)
         case ('c'): [[fallthrough]];
         case ('C'): {
             clear();
+            if (periodo->disciplinas.size() == 0)
+                std::cout << "Nenhuma disciplina encontrada. (Pressione <enter> para continuar)\n";
             periodo->disciplinas.print();
             std::getline(std::cin, temp);
             break;
@@ -394,7 +403,7 @@ void Terminal::showMenuDel()
         std::cout << "Qual periodo voce deseja deletar?\n";
         while (iterator)
         {
-            std::cout << "- " << iterator->getId() << "\n";
+            iterator->printPeriodo();
             iterator = iterator->prox;
         }
         std::getline(std::cin >> std::ws, periodo);

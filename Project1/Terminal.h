@@ -5,12 +5,6 @@
 
 class Terminal
 {
-private:
-	ListaEncadeada<Periodo>* listaPeriodo = new ListaEncadeada<Periodo>;
-	bool inMenu;
-	const char * m_separator{ "\n" }; // funciona tb se for espaco " "
-	bool dumpForInt{ false };
-
 public:
 	Terminal();
 	~Terminal();
@@ -28,7 +22,16 @@ public:
 	void addDisciplina(Periodo* periodo);
 	void delDisciplina(Periodo* periodo);
 	void showMenuDel();
-	void menuPeriodo(Periodo*);
+
+
+
+private:
+	ListaEncadeada<Periodo>* listaPeriodo = new ListaEncadeada<Periodo>;
+	const char* m_separator{ "\n" }; // funciona tb se for espaco " "
+	bool dumpForInt{ false };
+
+
+	//funções para salvar
 	auto getFile();
 	void saveState();
 	void readState();
