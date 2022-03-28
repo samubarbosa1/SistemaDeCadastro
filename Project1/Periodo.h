@@ -15,7 +15,11 @@ public:
 
 	// construtor e destrutor
 	Periodo();
+	Periodo(std::string id);
 	~Periodo();
+
+	//funcao
+	void printPeriodo();
 
 	//setter
 	void setId();

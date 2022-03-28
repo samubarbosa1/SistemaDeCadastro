@@ -291,6 +291,7 @@ void Terminal::addAluno(Periodo* periodo)
 
 void Terminal::delAluno(Periodo* periodo)
 {
+    ignoreOtherInputs();
     std::string aluno;
     while (true)
     {
@@ -361,10 +362,10 @@ void Terminal::delDisciplina(Periodo* periodo)
             iterator = iterator->prox;
         }
         std::getline(std::cin >> std::ws, disciplina);
-        if (this->listaPeriodo->val->disciplinas.find(disciplina) != nullptr)
+        if (this->listaPeriodo->val->alunos.find(disciplina) != nullptr)
         {
             this->clear();
-            this->listaPeriodo->val->disciplinas.del(disciplina);
+            this->listaPeriodo->val->alunos.del(disciplina);
             std::cout << "Disciplina Deletada!\n";
             std::getline(std::cin, disciplina);
             return;

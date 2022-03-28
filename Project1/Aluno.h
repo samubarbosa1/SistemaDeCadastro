@@ -11,6 +11,7 @@ private:
 public:
     Aluno* prox;
     Aluno();
+    Aluno(std::string id, std::string nome, std::string cpf);
 
     //setters
     void setCpf();

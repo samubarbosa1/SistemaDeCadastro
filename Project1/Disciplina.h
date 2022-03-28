@@ -13,9 +13,9 @@ private:
 public:
     Disciplina* prox{};
 
-    //construtor e destrutor
+    //construtores e destrutor
     Disciplina();
-    Disciplina(std::string id, std::string nome, std::string professor);
+    Disciplina(std::string id, std::string nome, std::string professor, int creditos);
 
     virtual ~Disciplina();
 

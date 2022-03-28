@@ -6,8 +6,17 @@ Periodo::Periodo()
 	setId();
 }
 
+Periodo::Periodo(std::string id) :
+	id(id)
+{}
+
 Periodo::~Periodo()
 {
+}
+
+void Periodo::printPeriodo()
+{
+	
 }
 
 void Periodo::setId()

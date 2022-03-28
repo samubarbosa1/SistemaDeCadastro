@@ -7,6 +7,10 @@ Aluno::Aluno()
 	setNome();
 }
 
+Aluno::Aluno(std::string id, std::string nome, std::string cpf) :
+	id(id), nome(nome), cpf(cpf)
+{}
+
 void Aluno::setCpf()
 {
 	std::string temp;

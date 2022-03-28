@@ -1,15 +1,16 @@
 #include "Disciplina.h"
 
-Disciplina::Disciplina(std::string id, std::string nome, std::string professor) :
-	id{id}, nome{nome}, professor{professor} 
-{}
-
 Disciplina::Disciplina()
 {
 	setId();
 	setNome();
 	setProfessor();
+	setCreditos();
 }
+
+Disciplina::Disciplina(std::string id, std::string nome, std::string professor, int creditos) :
+	id{ id }, nome{ nome }, professor{ professor }, creditos(creditos)
+{}
 
 Disciplina::~Disciplina()
 {
@@ -67,6 +68,8 @@ void Disciplina::setProfessor()
 
 void Disciplina::setCreditos()
 {
+	std::cout << "Quantos creditos tem a disciplina?\n";
+	std::cin >> creditos;
 }
 
 void Disciplina::print()
