@@ -29,7 +29,7 @@ public:
     std::string getId();
     std::string getNome();
     std::string getProfessor();
-    int         getCreditos();
+    int getCreditos();
 
 
 
