@@ -1,7 +1,4 @@
-﻿  Aluno.cpp
-  Disciplina.cpp
-  Periodo.cpp
-  Terminal.cpp
+﻿  Terminal.cpp
 D:\thiag\Documents\GitHub\SistemaDeCadastro\Project1\Terminal.cpp(41,26): warning C5051: o atributo 'fallthrough' exige pelo menos '/std:c++17' e será ignorado
 D:\thiag\Documents\GitHub\SistemaDeCadastro\Project1\Terminal.cpp(46,26): warning C5051: o atributo 'fallthrough' exige pelo menos '/std:c++17' e será ignorado
 D:\thiag\Documents\GitHub\SistemaDeCadastro\Project1\Terminal.cpp(51,26): warning C5051: o atributo 'fallthrough' exige pelo menos '/std:c++17' e será ignorado
@@ -19,6 +16,4 @@ D:\thiag\Documents\GitHub\SistemaDeCadastro\Project1\Terminal.cpp(240,22): warni
 D:\thiag\Documents\GitHub\SistemaDeCadastro\Project1\Terminal.cpp(245,22): warning C5051: o atributo 'fallthrough' exige pelo menos '/std:c++17' e será ignorado
 D:\thiag\Documents\GitHub\SistemaDeCadastro\Project1\Terminal.cpp(250,22): warning C5051: o atributo 'fallthrough' exige pelo menos '/std:c++17' e será ignorado
 D:\thiag\Documents\GitHub\SistemaDeCadastro\Project1\Terminal.cpp(255,22): warning C5051: o atributo 'fallthrough' exige pelo menos '/std:c++17' e será ignorado
-  main.cpp
-  Gerando Código...
-  Project1.vcxproj -> D:\thiag\Documents\GitHub\SistemaDeCadastro\x64\Debug\Project1.exe
+LINK : fatal error LNK1168: não foi possível abrir D:\thiag\Documents\GitHub\SistemaDeCadastro\x64\Debug\Project1.exe para escrita
