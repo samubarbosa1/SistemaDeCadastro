@@ -9,7 +9,7 @@ Disciplina::Disciplina()
 }
 
 Disciplina::Disciplina(std::string id, std::string nome, std::string professor, int creditos) :
-	id{ id }, nome{ nome }, professor{ professor }, creditos(creditos)
+	id{ id }, nome{ nome }, professor{ professor }, creditos{ creditos }
 {}
 
 Disciplina::~Disciplina()

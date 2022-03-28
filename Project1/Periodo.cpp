@@ -7,7 +7,7 @@ Periodo::Periodo()
 }
 
 Periodo::Periodo(std::string id) :
-	id(id)
+	id{id}
 {}
 
 Periodo::~Periodo()

@@ -36,8 +36,8 @@ public:
 	bool intWrite(std::ofstream& file, int val);
 	void intRead(std::ifstream& file, int* val);
 	void dumpByte(std::ifstream& file);
-	void readAluno(std::ifstream& file);
-	void readDisciplinas(std::ifstream& file);
+	Aluno* readAluno(std::ifstream& file);
+	Disciplina* readDisciplinas(std::ifstream& file);
 	void stringRead(std::ifstream& file, std::string& str);
 	void writeSeparator(std::ofstream& file);
 };

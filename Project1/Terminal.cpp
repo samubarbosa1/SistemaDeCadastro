@@ -453,8 +453,8 @@ void Terminal::saveState()
         stringWrite(file, periodoName);
 
         // Escrever todos Alunos
-        Aluno* iteratorAlunos{ listaPeriodo->val->alunos.val };
-        intWrite(file, listaPeriodo->val->alunos.size());
+        Aluno* iteratorAlunos{ iteratorPeriodo->alunos.val };
+        intWrite(file, iteratorPeriodo->alunos.size());
         while (iteratorAlunos) {
             std::string alunoId{ iteratorAlunos->getId() };
             std::string alunoCpf{ iteratorAlunos->getCpf() };
@@ -467,8 +467,8 @@ void Terminal::saveState()
         }
 
         // Escrever todas Disciplinas
-        Disciplina* iteratorDisciplinas{ listaPeriodo->val->disciplinas.val };
-        intWrite(file, listaPeriodo->val->disciplinas.size());
+        Disciplina* iteratorDisciplinas{ iteratorPeriodo->disciplinas.val };
+        intWrite(file, iteratorPeriodo->disciplinas.size());
         while (iteratorDisciplinas) {
             std::string disciplinaId{ iteratorDisciplinas->getId() };
             std::string disciplinaNome{ iteratorDisciplinas->getNome() };
@@ -513,23 +513,34 @@ void Terminal::readState()
     for (int i{}; i < periodoSize; i++) {
         std::string periodoName{};
         stringRead(file, periodoName);
+        Periodo* per = new Periodo(periodoName);
 
         std::cout << "Name Per: " << periodoName << '\n';
         int alunoSize{};
         // Alunos
+        ListaEncadeada<Aluno>* alunos = new ListaEncadeada<Aluno>;
         intRead(file, &alunoSize);
         std::cout << "Size Alunos: " << alunoSize << '\n';
         for (int j{}; j < alunoSize; j++) {
-            readAluno(file);
+            alunos->add(readAluno(file));
         }
+        per->alunos = *alunos;
         // Disciplinas
+        ListaEncadeada<Disciplina>* disciplinas = new ListaEncadeada<Disciplina>;
         int disciplinaSize{};
         intRead(file, &disciplinaSize);
         std::cout << "Size Disciplinas: " << disciplinaSize << '\n';
 
         for (int j{}; j < disciplinaSize; j++) {
-            readDisciplinas(file);
+            disciplinas->add(readDisciplinas(file));
         }
+        per->disciplinas = *disciplinas;
+        listaPeriodo->add(per);
+
+        alunos->val = nullptr;
+        disciplinas->val = nullptr;
+        delete alunos;
+        delete disciplinas;
     }
     std::cout << "Leitura concluida\n";
     std::getline(std::cin, arquivo);
@@ -578,33 +589,28 @@ void Terminal::dumpByte(std::ifstream& file)
     file.read((char*)&dump, 1);
 }
 
-void Terminal::readAluno(std::ifstream& file)
+Aluno* Terminal::readAluno(std::ifstream& file)
 {
     std::string id{};
     std::string cpf{};
     std::string name{};
     stringRead(file, id);
-    std::cout << "Al Id: " << id << '\n';
     stringRead(file, cpf);
-    std::cout << "Al Cpf: " << cpf << '\n';
     stringRead(file, name);
-    std::cout << "Al Name: " << name << '\n';
+    return new Aluno(id, cpf, name);
 }
 
-void Terminal::readDisciplinas(std::ifstream& file)
+Disciplina* Terminal::readDisciplinas(std::ifstream& file)
 {
     std::string id{};
     std::string name{};
     std::string professor{};
     int creditos{};
     stringRead(file, id);
-    std::cout << "Dis Id: " << id << '\n';
     stringRead(file, name);
-    std::cout << "Dis Name: " << name << '\n';
     stringRead(file, professor);
-    std::cout << "Dis Professor: " << professor << '\n';
     intRead(file, &creditos);
-    std::cout << "Dis Creditos: " << creditos << '\n';
+    return new Disciplina(id, name, professor, creditos);
 }
 
 void Terminal::stringRead(std::ifstream& file, std::string& str)
