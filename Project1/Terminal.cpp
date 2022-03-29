@@ -1,13 +1,58 @@
 #include "Terminal.h"
-
+#include <string>
 
 
 Terminal::Terminal()
 {
 }
 
+Terminal::Terminal(std::string arquivo)
+{
+    std::ifstream file;
+    default_arq = arquivo;
+    file.open(arquivo);
+    if (!file) {
+        std::cout << "Nao foi possivel abrir o arquivo default!\nA tabela sera iniciada vazia. (precione enter para continuar)\n";
+        std::getline(std::cin, arquivo);
+    }
+    else {
+        uploadState(file, false);
+        std::cout << "Arquivo default iniciado com sucesso! \n";
+        std::getline(std::cin, arquivo);
+    }
+    file.close();
+}
+
 Terminal::~Terminal()
 {
+    std::string temp{};
+    std::ofstream file;
+    if (default_arq.size()) {
+        file.open(default_arq);
+        if (!file) {
+            std::cout << "Nao foi possivel abrir o arquivo! \n";
+            std::cout << "Gostaria de salvar em outro arquivo? (s/n)\n";
+            std::getline(std::cin >> std::ws, temp);
+            if (temp[0] == 's' || temp[0] == 'S') {
+                file = getFile();
+                saveState(file);
+                std::cout << "Arquivo salvo com sucesso! \n";
+                std::getline(std::cin, temp);
+            }
+        }
+        else {
+            saveState(file);
+            std::cout << "Arquivo salvo com sucesso! \n";
+            std::getline(std::cin, temp);
+        }
+    }
+    else {
+        file = getFile();
+        saveState(file);
+        std::cout << "Arquivo salvo com sucesso! \n";
+        std::getline(std::cin, temp);
+    }
+    file.close();
     delete(listaPeriodo);
 }
 
@@ -27,7 +72,7 @@ void Terminal::showMenu()
     while (perguntar) {
         clear();
         char escolha{};
-        std::cout << "Qual operacao deseja realizar? (a/b/c/d)\n";
+        std::cout << "Qual operacao deseja realizar? (a/b/c/d/l/s)\n";
         std::cout << "a) Criar Periodo\n";
         std::cout << "b) Consultar Periodo\n";
         std::cout << "c) Remover Periodo\n";
@@ -63,7 +108,8 @@ void Terminal::showMenu()
             }
             case('s'): [[fallthrough]];
             case('S'): {
-                saveState();
+                std::ofstream file{ getFile() };
+                saveState(file);
                 break;
             }
             default: {
@@ -230,13 +276,7 @@ void Terminal::showMenuEditarPeriodo(Periodo* periodo)
     char escolha{};
     while (true) {
         clear();
-        std::cout << "Periodo " << periodo->getId();
-        std::cout << "\n Gostaria de verificar:\n";
-        std::cout << "a) Adicionar Aluno\n";
-        std::cout << "b) Remover Aluno\n";
-        std::cout << "c) Adicionar Disciplina\n";
-        std::cout << "d) Remover Disciplina\n";
-        std::cout << "e) Sair\n";
+        textMenuEditar(periodo);
         std::cout << "Opcao: ";
         std::cin >> escolha;
         ignoreOtherInputs();
@@ -267,6 +307,17 @@ void Terminal::showMenuEditarPeriodo(Periodo* periodo)
     }
 }
 
+void Terminal::textMenuEditar(Periodo* periodo)
+{
+    std::cout << "Periodo " << periodo->getId();
+    std::cout << "\n Gostaria de verificar:\n";
+    std::cout << "a) Adicionar Aluno\n";
+    std::cout << "b) Remover Aluno\n";
+    std::cout << "c) Adicionar Disciplina\n";
+    std::cout << "d) Remover Disciplina\n";
+    std::cout << "e) Sair\n";
+}
+
 void Terminal::showDadosPeriodo(Periodo* periodo)
 {
     std::cout << "Periodo " << periodo->getId() << "\n";
@@ -279,6 +330,7 @@ void Terminal::addAluno(Periodo* periodo)
     std::string temp{};
     while (true)
     {
+        clear();
         Aluno* novo = new Aluno;
         if (periodo->alunos.find(novo->getId()))
         {
@@ -300,7 +352,6 @@ void Terminal::addAluno(Periodo* periodo)
 
 void Terminal::delAluno(Periodo* periodo)
 {
-    ignoreOtherInputs();
     std::string aluno;
     while (true)
     {
@@ -338,6 +389,7 @@ void Terminal::addDisciplina(Periodo* periodo)
     std::string temp{};
     while (true)
     {
+        clear();
         Disciplina* novo = new Disciplina;
         if (periodo->disciplinas.find(novo->getId()))
         {
@@ -427,10 +479,10 @@ void Terminal::showMenuDel()
     }
 }
 
-auto Terminal::getFile()
+std::ifstream Terminal::findFile()
 {
     std::string arquivo{};
-    std::ofstream file{};
+    std::ifstream file;
     while (true) {
         std::cout << "Qual nome do arquivo?\n";
         std::getline(std::cin >> std::ws, arquivo);
@@ -446,10 +498,27 @@ auto Terminal::getFile()
     return file;
 }
 
-void Terminal::saveState()
+std::ofstream Terminal::getFile()
 {
-    std::string temp{};
-    std::ofstream file{getFile()};
+    std::string arquivo{};
+    std::ofstream file;
+    while (true) {
+        std::cout << "Qual nome do arquivo?\n";
+        std::getline(std::cin >> std::ws, arquivo);
+        file.open(arquivo);
+        if (!file) {
+            std::cout << "Nao foi possivel abrir o arquivo! (precione enter para continuar)\n";
+            std::getline(std::cin, arquivo);
+        }
+        else {
+            break;
+        }
+    }
+    return file;
+}
+
+void Terminal::saveState(std::ofstream& file)
+{
     if (!file) {
         return;
     }
@@ -494,42 +563,52 @@ void Terminal::saveState()
         iteratorPeriodo = iteratorPeriodo->prox;
     }
     std::cout << "Procedimento concluido!\n";
+    std::string temp{};
     std::getline(std::cin, temp);
     file.close();
 }
 
+
+
 void Terminal::readState()
 {
-    std::string arquivo{};
-    std::ifstream file{};
-    while (true) {
-        std::cout << "Qual nome do arquivo?\n";
-        std::getline(std::cin >> std::ws, arquivo);
-        file.open(arquivo);
-        if (!file) {
-            std::cout << "Nao foi possivel abrir o arquivo! (precione enter para continuar)\n";
-            std::getline(std::cin, arquivo);
-            return;
+    std::ifstream file = findFile();
+    // Periodos
+    uploadState(file, true);
+
+}
+
+void Terminal::removeWhiteSpace(std::string& str)
+{
+    for (char& c : str) {
+        if (c == ' ') {
+            c = '_';
         }
-        else {
-            break;
+        else if (c == '_') {
+            c = ' ';
         }
     }
-    // Periodos
+}
+
+void Terminal::uploadState(std::ifstream& file, bool print)
+{
     int periodoSize{};
     intRead(file, &periodoSize);
-    std::cout << "Size Periodo: " << periodoSize << '\n';
+    if (print)
+        std::cout << "Size Periodo: " << periodoSize << '\n';
     for (int i{}; i < periodoSize; i++) {
         std::string periodoName{};
         stringRead(file, periodoName);
         Periodo* per = new Periodo(periodoName);
 
-        std::cout << "Name Per: " << periodoName << '\n';
+        if (print)
+            std::cout << "Name Per: " << periodoName << '\n';
         int alunoSize{};
         // Alunos
         ListaEncadeada<Aluno>* alunos = new ListaEncadeada<Aluno>;
         intRead(file, &alunoSize);
-        std::cout << "Size Alunos: " << alunoSize << '\n';
+        if (print)
+            std::cout << "Size Alunos: " << alunoSize << '\n';
         for (int j{}; j < alunoSize; j++) {
             alunos->add(readAluno(file));
         }
@@ -538,7 +617,8 @@ void Terminal::readState()
         ListaEncadeada<Disciplina>* disciplinas = new ListaEncadeada<Disciplina>;
         int disciplinaSize{};
         intRead(file, &disciplinaSize);
-        std::cout << "Size Disciplinas: " << disciplinaSize << '\n';
+        if (print)
+            std::cout << "Size Disciplinas: " << disciplinaSize << '\n';
 
         for (int j{}; j < disciplinaSize; j++) {
             disciplinas->add(readDisciplinas(file));
@@ -551,16 +631,20 @@ void Terminal::readState()
         delete alunos;
         delete disciplinas;
     }
-    std::cout << "Leitura concluida\n";
-    std::getline(std::cin, arquivo);
+    if (print)
+        std::cout << "Leitura concluida\n";
 
+    file.close();
+    std::string arquivo{};
+    if (print)
+        std::getline(std::cin, arquivo);
 }
 
 bool Terminal::stringWrite(std::ofstream& file, std::string& str)
 {
+    removeWhiteSpace(str);
     file.write(str.c_str(), str.length());
     writeSeparator(file);
-
     if (!file.good()) {
         std::cout << "Erro ocorreu na escrita!\n";
         std::getline(std::cin, str);
@@ -625,6 +709,7 @@ Disciplina* Terminal::readDisciplinas(std::ifstream& file)
 void Terminal::stringRead(std::ifstream& file, std::string& str)
 {
     file >> str;
+    removeWhiteSpace(str);
     dumpForInt = true;
 }
 
