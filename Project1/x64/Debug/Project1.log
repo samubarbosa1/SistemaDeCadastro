@@ -1,1 +1,19 @@
-﻿  Project1.vcxproj -> C:\Users\samue\OneDrive\Documentos\Projetos\lab de prog I\SistemaDeCadastro\SistemaDeCadastro\SistemaDeCadastro\x64\Debug\Project1.exe
+﻿  Terminal.cpp
+C:\Users\samue\OneDrive\Documentos\Projetos\lab de prog I\SistemaDeCadastro\Project1\Terminal.cpp(85,26): warning C5051: o atributo 'fallthrough' exige pelo menos '/std:c++17' e será ignorado
+C:\Users\samue\OneDrive\Documentos\Projetos\lab de prog I\SistemaDeCadastro\Project1\Terminal.cpp(90,26): warning C5051: o atributo 'fallthrough' exige pelo menos '/std:c++17' e será ignorado
+C:\Users\samue\OneDrive\Documentos\Projetos\lab de prog I\SistemaDeCadastro\Project1\Terminal.cpp(95,26): warning C5051: o atributo 'fallthrough' exige pelo menos '/std:c++17' e será ignorado
+C:\Users\samue\OneDrive\Documentos\Projetos\lab de prog I\SistemaDeCadastro\Project1\Terminal.cpp(100,26): warning C5051: o atributo 'fallthrough' exige pelo menos '/std:c++17' e será ignorado
+C:\Users\samue\OneDrive\Documentos\Projetos\lab de prog I\SistemaDeCadastro\Project1\Terminal.cpp(104,26): warning C5051: o atributo 'fallthrough' exige pelo menos '/std:c++17' e será ignorado
+C:\Users\samue\OneDrive\Documentos\Projetos\lab de prog I\SistemaDeCadastro\Project1\Terminal.cpp(109,26): warning C5051: o atributo 'fallthrough' exige pelo menos '/std:c++17' e será ignorado
+C:\Users\samue\OneDrive\Documentos\Projetos\lab de prog I\SistemaDeCadastro\Project1\Terminal.cpp(207,23): warning C5051: o atributo 'fallthrough' exige pelo menos '/std:c++17' e será ignorado
+C:\Users\samue\OneDrive\Documentos\Projetos\lab de prog I\SistemaDeCadastro\Project1\Terminal.cpp(216,23): warning C5051: o atributo 'fallthrough' exige pelo menos '/std:c++17' e será ignorado
+C:\Users\samue\OneDrive\Documentos\Projetos\lab de prog I\SistemaDeCadastro\Project1\Terminal.cpp(233,23): warning C5051: o atributo 'fallthrough' exige pelo menos '/std:c++17' e será ignorado
+C:\Users\samue\OneDrive\Documentos\Projetos\lab de prog I\SistemaDeCadastro\Project1\Terminal.cpp(242,23): warning C5051: o atributo 'fallthrough' exige pelo menos '/std:c++17' e será ignorado
+C:\Users\samue\OneDrive\Documentos\Projetos\lab de prog I\SistemaDeCadastro\Project1\Terminal.cpp(259,23): warning C5051: o atributo 'fallthrough' exige pelo menos '/std:c++17' e será ignorado
+C:\Users\samue\OneDrive\Documentos\Projetos\lab de prog I\SistemaDeCadastro\Project1\Terminal.cpp(264,23): warning C5051: o atributo 'fallthrough' exige pelo menos '/std:c++17' e será ignorado
+C:\Users\samue\OneDrive\Documentos\Projetos\lab de prog I\SistemaDeCadastro\Project1\Terminal.cpp(284,22): warning C5051: o atributo 'fallthrough' exige pelo menos '/std:c++17' e será ignorado
+C:\Users\samue\OneDrive\Documentos\Projetos\lab de prog I\SistemaDeCadastro\Project1\Terminal.cpp(289,22): warning C5051: o atributo 'fallthrough' exige pelo menos '/std:c++17' e será ignorado
+C:\Users\samue\OneDrive\Documentos\Projetos\lab de prog I\SistemaDeCadastro\Project1\Terminal.cpp(294,22): warning C5051: o atributo 'fallthrough' exige pelo menos '/std:c++17' e será ignorado
+C:\Users\samue\OneDrive\Documentos\Projetos\lab de prog I\SistemaDeCadastro\Project1\Terminal.cpp(299,22): warning C5051: o atributo 'fallthrough' exige pelo menos '/std:c++17' e será ignorado
+C:\Users\samue\OneDrive\Documentos\Projetos\lab de prog I\SistemaDeCadastro\Project1\Terminal.cpp(304,22): warning C5051: o atributo 'fallthrough' exige pelo menos '/std:c++17' e será ignorado
+  Project1.vcxproj -> C:\Users\samue\OneDrive\Documentos\Projetos\lab de prog I\SistemaDeCadastro\x64\Debug\Project1.exe

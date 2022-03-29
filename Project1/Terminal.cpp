@@ -422,11 +422,12 @@ void Terminal::delDisciplina(Periodo* periodo)
             std::cout << "- " << iterator->getNome() << " (" << iterator->getId() << ")\n";
             iterator = iterator->prox;
         }
+
         std::getline(std::cin >> std::ws, disciplina);
-        if (this->listaPeriodo->val->alunos.find(disciplina) != nullptr)
+        if (this->listaPeriodo->val->disciplinas.find(disciplina) != nullptr)
         {
             this->clear();
-            this->listaPeriodo->val->alunos.del(disciplina);
+            this->listaPeriodo->val->disciplinas.del(disciplina);
             std::cout << "Disciplina Deletada!\n";
             std::getline(std::cin, disciplina);
             return;
